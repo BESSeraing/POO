@@ -8,11 +8,24 @@
  */
 class Personnage
 {
+    
+    const LOW_STRENGTH = 10;
+    const MID_STRENGTH = 50;
+    const HIGH_STRENGTH = 100;
+    
+    
+    
+    public static $instanceNumber = 0;
 
     /**
      * @var string
      */
     private $name;
+
+    /**
+     * @var integer
+     */
+    private $strength;
 
     /**
      * @var integer
@@ -30,11 +43,14 @@ class Personnage
      * @param int $xp
      * @param int $damage
      */
-    public function __construct($name, $xp = 0, $damage = 0)
+    public function __construct($name,$strength, $xp = 0, $damage = 0)
     {
         $this->name = $name;
         $this->xp = $xp;
         $this->damage = $damage;
+        $this->setStrength($strength); // On se sert du setter pour profiter des avantages de l'encapsulation
+        self::$instanceNumber ++;
+        
     }
 
 
@@ -99,6 +115,27 @@ class Personnage
     
     public function attack(Personnage $target){
         $target->increaseDamage();
+    }
+
+    /**
+     * @return int
+     */
+    public function getStrength(): int
+    {
+        return $this->strength;
+    }
+
+    /**
+     * @param int $strength
+     */
+    public function setStrength(int $strength)
+    {
+        if ($strength === self::HIGH_STRENGTH || $strength === self::LOW_STRENGTH || $strength === self::MID_STRENGTH){
+            $this->strength = $strength;
+        }
+        else{
+            throw new Exception('strength must be set with one Personnage const');
+        }
     }
 
     

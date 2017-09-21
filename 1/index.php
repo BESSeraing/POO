@@ -1,9 +1,12 @@
 <?php
+function loadClass($class){
+    require_once('Class/'.$class.'.php');
+}
 
-require "Class/Personnage.php";
+spl_autoload_register('loadClass');
 
-$perso = new Personnage('Mazlum',0,10);
-$perso2 = new Personnage('André',10);
+$perso = new Personnage('Mazlum',Personnage::LOW_STRENGTH,0,10);
+$perso2 = new Personnage('André',Personnage::HIGH_STRENGTH,10);
 
 // Commenté, maintenant les parametres ont une valeur par defaut et 
 // Le nom est passé au constructeur.
@@ -23,5 +26,7 @@ $perso->attack($perso2);
 $perso->attack($perso2);
 $perso->attack($perso2);
 $perso->attack($perso2);
-echo $perso2->getDamage();
+
+//echo $perso2->getDamage();
+echo Personnage::$instanceNumber;
 
