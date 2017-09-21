@@ -12,7 +12,11 @@ class Personnage
     const LOW_STRENGTH = 10;
     const MID_STRENGTH = 50;
     const HIGH_STRENGTH = 100;
-    
+
+    /**
+     * @var integer
+     */
+    private $id;
     
     
     public static $instanceNumber = 0;
@@ -43,7 +47,7 @@ class Personnage
      * @param int $xp
      * @param int $damage
      */
-    public function __construct($name,$strength, $xp = 0, $damage = 0)
+    public function __construct($name=null,$strength=self::LOW_STRENGTH, $xp = 0, $damage = 0)
     {
         $this->name = $name;
         $this->xp = $xp;
@@ -52,6 +56,32 @@ class Personnage
         self::$instanceNumber ++;
         
     }
+    
+    public function hydrate($dataArray){
+        foreach ($dataArray as $dataKey =>$dataValue){
+            if (method_exists($this,'set'.ucfirst($dataKey))){
+                call_user_func([$this,'set'.ucfirst($dataKey)],$dataValue);
+            }
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+    
+    
 
 
     /**
