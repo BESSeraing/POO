@@ -6,17 +6,19 @@
  * Date: 19/09/17
  * Time: 9:46
  */
-class Personnage
+abstract class Personnage
 {
+    use Adressable;
     
     const LOW_STRENGTH = 10;
     const MID_STRENGTH = 50;
     const HIGH_STRENGTH = 100;
 
+    const PERSONNAGE_TYPE = 'Personnage';
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
     
     
     public static $instanceNumber = 0;
@@ -24,22 +26,27 @@ class Personnage
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var integer
      */
-    private $strength;
+    protected $strength;
 
     /**
      * @var integer
      */
-    private $xp = 0;
+    protected $xp = 0;
     
     /**
      * @var integer
      */
-    private $damage = 0;
+    protected $damage = 0;
+
+    /**
+     * @var string
+     */
+    protected $type;
 
     /**
      * Personnage constructor.
@@ -54,6 +61,9 @@ class Personnage
         $this->damage = $damage;
         $this->setStrength($strength); // On se sert du setter pour profiter des avantages de l'encapsulation
         self::$instanceNumber ++;
+        $this->type = self::PERSONNAGE_TYPE;
+        
+        $this->street = 'backer street';
         
     }
     
@@ -166,6 +176,22 @@ class Personnage
         else{
             throw new Exception('strength must be set with one Personnage const');
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
     }
 
     
