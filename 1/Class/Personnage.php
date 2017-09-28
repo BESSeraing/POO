@@ -61,7 +61,8 @@ abstract class Personnage
         $this->damage = $damage;
         $this->setStrength($strength); // On se sert du setter pour profiter des avantages de l'encapsulation
         self::$instanceNumber ++;
-        $this->type = self::PERSONNAGE_TYPE;
+        $class= get_called_class();
+        $this->type = $class::PERSONNAGE_TYPE;
         
         $this->street = 'backer street';
         
@@ -183,7 +184,11 @@ abstract class Personnage
      */
     public function getType(): string
     {
+        
+//        die($class::PERSONNAGE_TYPE);
         return $this->type;
+        
+        return $class::PERSONNAGE_TYPE;
     }
 
     /**
@@ -195,6 +200,7 @@ abstract class Personnage
     }
 
     
+
     
     
     

@@ -6,7 +6,7 @@
  * Date: 21/09/17
  * Time: 13:50
  */
-class PersonnageManager extends AbstractManager
+class PersonnageManager implements ManagerInterface
 {
 
     const TABLE_NAME = 'personnage';
@@ -16,7 +16,7 @@ class PersonnageManager extends AbstractManager
      */
     public function create($personnage)
     {
-        $sth = DBConfig::getConnection()->prepare('INSERT INTO '.self::TABLE_NAME.' (`name`,`xp`,`damage`,`strength`) VALUES (:name,:xp,:damage,:strength)');
+        $sth = DBConfig::getConnection()->prepare('INSERT INTO '.self::TABLE_NAME.' (`name`,`xp`,`damage`,`strength`,`type`) VALUES (:name,:xp,:damage,:strength,:type)');
         $sth->execute([
             'name'=>$personnage->getName(),
             'xp'=>$personnage->getXp(),
@@ -24,6 +24,8 @@ class PersonnageManager extends AbstractManager
             'strength'=>$personnage->getStrength(),
             'type'=>$personnage->getType(),
         ]);
+        
+        $personnage->setId(DBConfig::getConnection()->lastInsertId());
     }
 
     /**
