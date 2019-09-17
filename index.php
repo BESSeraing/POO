@@ -9,15 +9,20 @@ $dbConnexion = new PDOConnection("127.0.0.1","3306","root", "root", "poo_19_20")
 $personnageManager = new PersonnageManager($dbConnexion->getPdo());
 
 
-$perso1 = new Personnage(Personnage::FORCE_HIGH, 1, 0, "Billy" );
-$perso2 = new Personnage(Personnage::FORCE_MEDIUM, 1, 0, "Tartempion");
+
+$billy = new Wizard("Billy");
+$bob = new Troll("Bob");
 
 
-$perso1->hit($perso2);
-$perso2->hit($perso1);
-$perso2->hit($perso1);
-$perso2->hit($perso1);
-$perso2->hit($perso1);
+$billy->hit($bob);
+$bob->hit($billy);
+$bob->hit($billy);
+$bob->hit($billy);
+$bob->hit($billy);
+$billy->hit($bob);
+$billy->hit($bob);
+$bob->speak("haaaaa");
+$billy->speak("héhéhé");
 
-$personnageManager->save($perso1);
-$personnageManager->save($perso2);
+$personnageManager->save($billy);
+$personnageManager->save($bob);

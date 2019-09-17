@@ -6,20 +6,20 @@
  * Time: 11:20
  */
 
-class Personnage
+abstract class Personnage
 {
 
     public const FORCE_LOW = 80;
     public const FORCE_MEDIUM = 90;
     public const FORCE_HIGH = 100;
 
-    private static $playersNumber = 0;
+    protected static $playersNumber = 0;
 
-    private $id;
-    private $name;
-    private $force;
-    private $xp;
-    private $degats;
+    protected $id;
+    protected $name;
+    protected $force;
+    protected $xp;
+    protected $degats;
 
     public function __construct(int $force, int $xp, int $degats, string $name)
     {
@@ -137,5 +137,7 @@ class Personnage
         $this->name = $name;
     }
 
+
+    public abstract function speak(string $message) :void;
 
 }
